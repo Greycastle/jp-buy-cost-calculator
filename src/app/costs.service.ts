@@ -1,40 +1,6 @@
-import { Cost } from './cost';
-import { Brackets } from './brackets';
-
-class FixedCost extends Cost {
-  private _cost: number;
-
-  constructor(name: string, description: string, cost: number) {
-    super(name, description);
-    this._cost = cost;
-  }
-
-  get cost(): number { return this._cost; }
-}
-
-class StampDuty extends Cost {
-  private purchaseCost: number;
-  private brackets = new Brackets();
-  constructor(purchaseCost: number) {
-    super('Stamp', 'stuff');
-    this.purchaseCost = purchaseCost;
-
-    this.brackets.add(1, 500);
-    this.brackets.add(5, 1000);
-    this.brackets.add(10, 5000);
-    this.brackets.add(50, 10000);
-    this.brackets.add(100, 30000);
-    this.brackets.add(500, 60000);
-    this.brackets.add(501, 160000);
-  }
-
-  private calculate(): number {
-    const millions = this.purchaseCost / 1000000;
-    return this.brackets.getValueFor(millions);
-  }
-
-  get cost(): number { return this.calculate(); }
-}
+import { Cost } from './costs/cost';
+import { StampDuty } from './costs/stamp.duty';
+import { FixedCost } from './costs/fixed.cost';
 
 export class CostsService {
   getCosts(purchaseCost: number): Cost[] {

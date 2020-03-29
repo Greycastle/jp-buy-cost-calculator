@@ -1,6 +1,6 @@
 import { CostsService } from './costs.service';
 import { Component } from '@angular/core';
-import { Cost } from './cost';
+import { Cost } from './costs/cost';
 
 @Component({
   selector: 'app-root',
